@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/worker")
 public class WorkerController {
@@ -45,8 +44,7 @@ public class WorkerController {
         try{
                 Worker worker_ = new Worker( worker.getFirstname(), worker.getLastname(), worker.getLogin(), worker.getPassword(), worker.getEmail(), worker.getResponsibilities(),
                         worker.getPosition(), worker.getDateofemployment(), worker.getDateofbirth(), worker.getSalary(), worker.getActivity(),
-                        worker.getPesel(), worker.getWorkinghours());
-                worker.setPrivileges("1");
+                        worker.getPesel(), worker.getWorkinghours(), worker.getPrivileges());
             Worker _worker = workerRepository.save(worker_);
             return new ResponseEntity<>(_worker, HttpStatus.CREATED);
             }catch(Exception e){
@@ -114,7 +112,6 @@ public class WorkerController {
     @PutMapping("/change/{idWorker}")
     public ResponseEntity<Worker> updateWoker(@PathVariable("idWorker") long idWorker, @RequestBody Worker worker){
         Optional<Worker> workerData = workerRepository.findById(idWorker);
-
         if(workerData.isPresent()){
             Worker _worker = workerData.get();
             _worker.setActivity(worker.getActivity());

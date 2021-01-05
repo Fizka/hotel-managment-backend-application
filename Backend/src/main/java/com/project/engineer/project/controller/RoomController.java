@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/room")
 @RestController
 public class RoomController {
@@ -43,7 +42,9 @@ public class RoomController {
     @PostMapping(value = "/new")
     public ResponseEntity<Room> postRoom(@RequestBody Room room) {
         try{
-            Room room_ = new Room( room.getFloor(),room.getNumberRM(),  room.getPrice(), room.getDescription(), room.getMaxCapacity(), room.getTitle());
+            int random= (int)Math.floor(Math.random() *83);
+
+            Room room_ = new Room(room.getUrlImages(), room.getFloor(),room.getNumberRM(),  room.getPrice(), room.getDescription(), room.getMaxCapacity(), room.getTitle());
             Room _room = roomRepository.save(room_);
             return new ResponseEntity<>(_room, HttpStatus.CREATED);
         }catch(Exception e){
@@ -107,7 +108,6 @@ public class RoomController {
             _room.setNumberRM(room.getNumberRM());
             _room.setPrice(room.getPrice());
             _room.setTitle(room.getTitle());
-
             return new ResponseEntity<>(roomRepository.save(_room), HttpStatus.OK);
 
         }else {

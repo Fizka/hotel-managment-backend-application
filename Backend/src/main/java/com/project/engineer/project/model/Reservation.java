@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "Reservation")
@@ -14,15 +14,25 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long idReservation;
 
-    @JsonFormat(pattern="yyyy-MM-dd")
     @Column(name = "startData")
-    Date startData;
+    LocalDate startData;
 
-    @JsonFormat(pattern="yyyy-MM-dd")
     @Column(name = "endData")
-    Date endData;
+    LocalDate endData;
 
-    @OneToOne(
+    @Column(name = "howLong")
+    int howLong;
+
+    @Column(name = "customer")
+    String customer;
+
+    @Column(name = "room")
+    String room;
+
+    @Column(name = "status")
+    boolean status;
+
+    @ManyToOne(
             fetch = FetchType.LAZY,
             optional = false
     )
@@ -44,9 +54,49 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(Date startData, Date endData) {
+    public Reservation(boolean status, LocalDate startData, LocalDate endData, int howLong, Room roomReservation, Customer customerReservation) {
+        this.status = status;
         this.startData = startData;
         this.endData = endData;
+        this.howLong = howLong;
+        this.roomReservation = roomReservation;
+        this.customerReservation = customerReservation;
+    }
+
+    public Reservation(LocalDate startData, LocalDate endData) {
+        this.startData = startData;
+        this.endData = endData;
+    }
+
+    public Reservation(LocalDate startData, LocalDate endData, Room roomReservation, Customer customerReservation) {
+        this.startData = startData;
+        this.endData = endData;
+        this.roomReservation = roomReservation;
+        this.customerReservation = customerReservation;
+    }
+
+    public String getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(String customer) {
+        this.customer = customer;
+    }
+
+    public String getRoom() {
+        return room;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
+    }
+
+    public int getHowLong() {
+        return howLong;
+    }
+
+    public void setHowLong(int howLong) {
+        this.howLong = howLong;
     }
 
     public Room getRoomReservation() {
@@ -73,21 +123,27 @@ public class Reservation {
         this.idReservation = idReservation;
     }
 
-    public Date getStartData() {
+    public LocalDate getStartData() {
         return startData;
     }
 
-    public void setStartData(Date startData) {
+    public void setStartData(LocalDate startData) {
         this.startData = startData;
     }
 
-    public Date getEndData() {
+    public LocalDate getEndData() {
         return endData;
     }
 
-    public void setEndData(Date endData) {
+    public void setEndData(LocalDate endData) {
         this.endData = endData;
     }
 
+    public boolean isStatus() {
+        return status;
+    }
 
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 }

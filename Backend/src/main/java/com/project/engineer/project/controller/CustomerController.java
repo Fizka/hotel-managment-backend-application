@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:4200")
 @Controller
 @RequestMapping(value = "/customer")
 public class CustomerController {
@@ -133,6 +132,7 @@ public class CustomerController {
             _customer.setLastname(customer.getLastname());
             _customer.setLogin(customer.getLogin());
             _customer.setPassword(customer.getPassword());
+            _customer.setPrivileges(customer.getPrivileges());
 
             return new ResponseEntity<>(customerRepository.save(_customer), HttpStatus.OK);
         } else {

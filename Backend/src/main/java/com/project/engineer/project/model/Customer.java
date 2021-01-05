@@ -22,8 +22,8 @@ public class Customer {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "privileges", columnDefinition ="varchar(255) default '0'' ")
-    private String privileges;
+    @Column(name = "privileges", columnDefinition ="int default 0")
+    private int privileges;
 
     @Column(name = "email")
     private String email;
@@ -31,14 +31,14 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(String login, String password, String privileges, String email) {
+    public Customer(String login, String password, int privileges, String email) {
         this.login = login;
         this.password = password;
         this.privileges = privileges;
         this.email = email;
     }
 
-    public Customer(String firstname, String lastname, String login, String password, String privileges, String email) {
+    public Customer(String firstname, String lastname, String login, String password, int privileges, String email) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.login = login;
@@ -47,11 +47,11 @@ public class Customer {
         this.email = email;
     }
 
-    public String getPrivileges() {
+    public int getPrivileges() {
         return privileges;
     }
 
-    public void setPrivileges(String privileges) {
+    public void setPrivileges(int privileges) {
         this.privileges = privileges;
     }
 

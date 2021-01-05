@@ -20,19 +20,23 @@ public class Room {
     @Column(name = "price")
     private int price;
 
-    @Column(name = "description")
+    @Column(name = "urlImages")
+    private String urlImages;
+
+    @Column(name = "description", columnDefinition ="text")
     private String description;
 
     @Column(name = "maxCapacity")
     private int maxCapacity;
 
-    @Column(name = "title")
+    @Column(name = "title", columnDefinition ="text")
     private String title;
 
     public Room() {
     }
 
-    public Room(int floor, int numberRM, int price, String description, int maxCapacity, String title) {
+    public Room(String urlImages, int floor, int numberRM, int price, String description, int maxCapacity, String title) {
+        this.urlImages = urlImages;
         this.floor = floor;
         this.numberRM = numberRM;
         this.price = price;
@@ -103,5 +107,13 @@ public class Room {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getUrlImages() {
+        return urlImages;
+    }
+
+    public void setUrlImages(String urlImages) {
+        this.urlImages = urlImages;
     }
 }

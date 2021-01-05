@@ -54,8 +54,8 @@ public class Worker {
     @Column(name = "activity")
     private String activity;
 
-    @Column(name = "privileges", columnDefinition ="varchar(255) default '1'' ")
-    private String privileges;
+    @Column(name = "privileges", columnDefinition ="int default 1 ")
+    private int privileges;
 
     @Column(name = "pesel")
     private String pesel;
@@ -65,7 +65,7 @@ public class Worker {
 
     public Worker(){}
 
-    public Worker(String firstname, String lastname, String login, String password, String email, String responsibilities, String position, Date dateofemployment, Date dateofbirth, int salary, String activity, String pesel, String workinghours) {
+    public Worker(String firstname, String lastname, String login, String password, String email, String responsibilities, String position, Date dateofemployment, Date dateofbirth, int salary, String activity, String pesel, String workinghours, int privileges) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.login = login;
@@ -79,6 +79,7 @@ public class Worker {
         this.activity = activity;
         this.pesel = pesel;
         this.workinghours = workinghours;
+        this.privileges = privileges;
     }
 
     public Worker(String login, String password) {
@@ -86,7 +87,7 @@ public class Worker {
         this.password = password;
     }
 
-    public Worker(String login, String password, String privileges) {
+    public Worker(String login, String password, int privileges) {
         this.login = login;
         this.password = password;
         this.privileges = privileges;
@@ -112,11 +113,11 @@ public class Worker {
         return lastname;
     }
 
-    public String getPrivileges() {
+    public int getPrivileges() {
         return privileges;
     }
 
-    public void setPrivileges(String privileges) {
+    public void setPrivileges(int privileges) {
         this.privileges = privileges;
     }
 
