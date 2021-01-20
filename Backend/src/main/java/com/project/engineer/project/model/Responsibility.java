@@ -1,9 +1,6 @@
 package com.project.engineer.project.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
-import javax.validation.constraints.Null;
 
 @Entity
 @Table(name = "Responsibility")
