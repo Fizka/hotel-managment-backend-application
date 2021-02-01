@@ -1,9 +1,6 @@
 package com.project.engineer.project.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import net.bytebuddy.implementation.bind.annotation.Default;
-import org.hibernate.validator.constraints.UniqueElements;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

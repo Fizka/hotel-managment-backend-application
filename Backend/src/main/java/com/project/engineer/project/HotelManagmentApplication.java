@@ -1,8 +1,5 @@
 package com.project.engineer.project;
 
-import com.github.javafaker.Faker;
-import com.github.javafaker.Name;
-import com.project.engineer.project.model.*;
 import com.project.engineer.project.repository.*;
 import com.project.engineer.project.service.ReservetService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 @SpringBootApplication
 public class HotelManagmentApplication implements CommandLineRunner {
@@ -50,7 +45,7 @@ public class HotelManagmentApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
+/*
         Faker faker = new Faker(new Locale("pl"));
 
         Customer customer;
@@ -149,7 +144,7 @@ public class HotelManagmentApplication implements CommandLineRunner {
                     newWorker.getidWorker());
             responsibilityRepository.save(responsibility);
         }
-
+*/
     }
 }
 

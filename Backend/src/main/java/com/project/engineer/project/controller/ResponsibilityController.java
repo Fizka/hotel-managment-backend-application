@@ -1,7 +1,4 @@
 package com.project.engineer.project.controller;
-
-
-import com.project.engineer.project.model.Customer;
 import com.project.engineer.project.model.Responsibility;
 import com.project.engineer.project.model.Worker;
 import com.project.engineer.project.repository.ResponsibilityRepository;
@@ -29,21 +26,22 @@ public class ResponsibilityController {
     WorkerRepository workerRepository;
 
     @GetMapping("")
-    public ResponseEntity<List<Responsibility>> getAllResponsibility() {
-        List<Responsibility> responsibility = new ArrayList<>();
+    public ResponseEntity<List<Responsibility>> getAllResponsibilities() {
+        List<Responsibility> responsibilities = new ArrayList<>();
         try {
-            responsibilityRepository.findAll().forEach(responsibility::add);
-            if (responsibility.isEmpty()) {
+            responsibilityRepository.findAll().forEach(responsibilities::add);
+            if (responsibilities.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
-            return new ResponseEntity<>(responsibility, HttpStatus.OK);
+            return new ResponseEntity<>(responsibilities, HttpStatus.OK);
         } catch (Exception e) {
+            log.info("Error: " + e);
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PostMapping(value = "/new/{idWorker}")
-    public ResponseEntity<Responsibility> postUser( @PathVariable long idWorker, @RequestBody Responsibility responsibility) {
+    public ResponseEntity<Responsibility> postResponsibility(@PathVariable long idWorker, @RequestBody Responsibility responsibility) {
         try {
             log.info("idWorker and responsibility {} and {}", idWorker, responsibility);
             Optional<Worker> _worker = workerRepository.findById(idWorker);
@@ -54,14 +52,16 @@ public class ResponsibilityController {
                     idWorker));
             return new ResponseEntity<>(_responsibility, HttpStatus.CREATED);
         } catch (Exception e) {
+            log.info("Error: " + e);
             return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
         }
     }
 
     @DeleteMapping("/{idResponsibility}")
-    public ResponseEntity<HttpStatus> deleteUser(@PathVariable("idResponsibility") long idResponsibility) {
+    public ResponseEntity<HttpStatus> deleteResponsibility(@PathVariable("idResponsibility") long idResponsibility) {
         try {
             responsibilityRepository.deleteById(idResponsibility);
+            log.info("Removed responsibilty with id:", idResponsibility);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
@@ -70,19 +70,19 @@ public class ResponsibilityController {
 
 
     @PutMapping("/change/{idResponsibility}")
-    public ResponseEntity<Responsibility> updateUser(@PathVariable("idResponsibility") long idResponsibility,
-                                               @RequestBody Responsibility responsibility) {
-        Optional<Responsibility> userData = responsibilityRepository.findById(idResponsibility);
+    public ResponseEntity<Responsibility> updateResponsibility(@PathVariable("idResponsibility") long idResponsibility,
+                                                               @RequestBody Responsibility responsibility) {
+        Optional<Responsibility> responsibilityData = responsibilityRepository.findById(idResponsibility);
+        log.info("Update responsibility with id: ", idResponsibility);
+        if (responsibilityData.isPresent()) {
 
-        if (userData.isPresent()) {
-
-            Responsibility _customer = userData.get();
+            Responsibility _customer = responsibilityData.get();
             _customer.setDescription(responsibility.getDescription());
             _customer.setNameResponsibility(responsibility.getNameResponsibility());
             _customer.setResponsible(responsibility.getResponsible());
             _customer.setIdworkerResponsibility(responsibility.getIdworkerResponsibility());
             _customer.setStatus(responsibility.getStatus());
-
+            log.info("Update responsibility with: ", responsibilityData);
             return new ResponseEntity<>(responsibilityRepository.save(_customer), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

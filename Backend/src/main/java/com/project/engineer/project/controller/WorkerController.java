@@ -2,6 +2,7 @@ package com.project.engineer.project.controller;
 
 import com.project.engineer.project.model.Worker;
 import com.project.engineer.project.repository.WorkerRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.jdbc.Work;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @RestController
 @RequestMapping("/worker")
 public class WorkerController {

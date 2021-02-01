@@ -66,7 +66,6 @@ public class CommentController {
             log.info("Creating reservation: {}", comment);
             Optional<Room> roomData = roomRepository.findById(idRoom);
             Optional<Customer> customerData = customerRepository.findById(idCustomer);
-            commentRepository.save(new Comment(comment.getMark(), comment.getTextValue(), roomData.get(), customerData.get()));
             return new ResponseEntity<>(commentRepository.save(new Comment(comment.getMark(), comment.getTextValue(),
                     roomData.get(), customerData.get())), HttpStatus.CREATED);
         } catch (Exception e) {
